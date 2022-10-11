@@ -8,11 +8,12 @@ const router = express.Router();
 //     console.log("connect");
 // });
 
-//add services
+// add services
 router.post("/addservice",async(req,res)=>{
-    // console.log(req.body);
+    console.log(req.body);
 
     const {name,description} =req.body;
+    
     if(!name || !description){
         res.status(422).json("plz fill the data");
     }
