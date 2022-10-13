@@ -1,11 +1,43 @@
 const express = require("express");
 const users = require("../models/userSchema");
+const services = require("../models/serviceSchema");
 const router = express.Router();
 
 
 // router.get("/",(req,res) =>{
 //     console.log("connect");
 // });
+
+// add services
+router.post("/addservice",async(req,res)=>{
+    console.log(req.body);
+
+    const {name,description} =req.body;
+    
+    if(!name || !description){
+        res.status(422).json("plz fill the data");
+    }
+    try{
+
+        const preservice = await services.findOne({name:name});
+        console.log(preservice);
+
+        if(preservice){
+            res.status(422).json("this service is already present")
+        }
+        else{
+            const addservice = new services({
+                name,description
+            });
+
+            await addservice.save();
+            res.status(201).json(addservice);
+            console.log(addservice);
+        }
+    } catch(error){
+        res.status(422).send(error);
+    }
+})
 
 router.post("/register",async(req,res)=>{
     // console.log(req.body);
