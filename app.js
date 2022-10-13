@@ -12,6 +12,7 @@ const serviceRoute = require("./routes/services")
 const port = 8003;
 
 //middleware
+app.use(cors());
 app.use(express.json());
 
 
