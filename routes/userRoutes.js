@@ -10,5 +10,6 @@ router
 // router.route("/profile").post(protect, updateUserProfile);
 // router.route('/homepage').post(protect, reserveUser)
 router.route('/logout').get(logoutUser)
+router.route('/').get(protect)
 
 module.exports = router;

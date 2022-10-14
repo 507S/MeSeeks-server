@@ -10,11 +10,18 @@ const registerUser = asyncHandler(async (req, res) => {
     const emailExists = await User.findOne({email});
   
     if (usernameExists) {
-      res.status(404);
-      throw new Error("Username has already been taken");
+      error="Username has already been taken"
+      res.status(404).send(error);
+      throw new Error(error);
     }else if(emailExists){
-        res.status(404);
-      throw new Error("An account already exists under this email");
+      error="An account already exists under this email"
+      res.status(404).send(error);
+      throw new Error(error);
+    }
+    else if(password !== confirmPassword){
+      error="Passwords do not match"
+      res.status(404).send(error)
+      throw new Error(error)
     }
   
     const user = await User.create({
@@ -23,7 +30,6 @@ const registerUser = asyncHandler(async (req, res) => {
         username, 
         email, 
         password, 
-        confirmPassword, 
         rememberMe
     });
   
