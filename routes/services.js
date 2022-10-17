@@ -6,6 +6,7 @@ const router = express.Router();
 // add services
 router.post("/addservice",async(req,res)=>{
     console.log(req.body);
+    console.log("THIS IS REQ BODY")
 
     const {name,description} =req.body;
     
@@ -15,11 +16,13 @@ router.post("/addservice",async(req,res)=>{
     try{
 
         const preservice = await services.findOne({name:name});
-        console.log(preservice);
+        // console.log(preservice);
+        // console.log("THIS IS PRESERVICES=")
 
         if(preservice){
-            res.status(422).json("this service is already present")
-        }
+            error="this service is already present"
+            res.status(422).json(error)
+        }   
         else{
             const addservice = new services({
                 name,description
