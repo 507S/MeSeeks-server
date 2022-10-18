@@ -1,6 +1,6 @@
 const express = require("express");
-const services = require("../models/serviceSchema");
-const subServices = require("../models/subServiceSchema");
+const services = require("../model/serviceSchema");
+const subServices = require("../model/subServiceSchema");
 const router = express.Router();
 
 // add services
@@ -65,14 +65,14 @@ router.delete("/deleteservice/:id",async(req,res)=>{
     try{
         const {id} = req.params;
 
-        const currentservice = await services.findById({_id:id});
+        // const currentservice = await services.findById({_id:id});
     
-        subServices.deleteMany({ serviceName: { $eq: currentservice.name } }).then(function(){
-            console.log("Data deleted"); // Success
-        }).catch(function(error){
-            console.log(error); // Failure
-        });
-        const deletedService = await users.findByIdAndDelete({_id:id});
+        // subServices.deleteMany({ serviceName: { $eq: currentservice.name } }).then(function(){
+        //     console.log("Data deleted"); // Success
+        // }).catch(function(error){
+        //     console.log(error); // Failure
+        // });
+        const deletedService = await services.findByIdAndDelete({_id:id});
         
         console.log(deletedService);
         res.status(201).json(deletedService);

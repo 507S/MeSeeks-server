@@ -1,6 +1,6 @@
 const express = require("express");
-const users = require("../models/userSchema");
-const services = require("../models/serviceSchema");
+const users = require("../model/userSchema");
+const services = require("../model/serviceSchema");
 const router = express.Router();
 
 

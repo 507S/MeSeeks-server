@@ -3,7 +3,7 @@ const router = express.Router();
 const multer = require("multer");
 const { v4: uuidv4 } = require('uuid');
 let path = require('path');
-const subServices = require("../models/subServiceSchema");
+const subServices = require("../model/subServiceSchema");
 
 // router.post("/addsubservice",async(req,res)=>{
 //     console.log(req.body);
