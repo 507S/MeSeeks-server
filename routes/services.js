@@ -59,6 +59,27 @@ router.get("/getservice",async(req,res)=>{
     }
 });
 
+//delete category
+
+router.delete("/deleteservice/:id",async(req,res)=>{
+    try{
+        const {id} = req.params;
+
+        const currentservice = await services.findById({_id:id});
+    
+        subServices.deleteMany({ serviceName: { $eq: currentservice.name } }).then(function(){
+            console.log("Data deleted"); // Success
+        }).catch(function(error){
+            console.log(error); // Failure
+        });
+        const deletedService = await users.findByIdAndDelete({_id:id});
+        
+        console.log(deletedService);
+        res.status(201).json(deletedService);
+    }catch(error){
+        res.status(422).json(error);
+    }
+});
 // router.post("/addsubservice",async(req,res)=>{
 //     console.log(req.body);
 
@@ -88,5 +109,6 @@ router.get("/get-service-category", async (req, res) => {
       }
     });
   });
+
 
 module.exports =router;

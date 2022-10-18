@@ -116,6 +116,7 @@ router.delete("/deleteuser/:id",async(req,res)=>{
         const {id} = req.params;
 
         const deleteduser = await users.findByIdAndDelete({_id:id});
+        
         console.log(deleteduser);
         res.status(201).json(deleteduser);
     }catch(error){

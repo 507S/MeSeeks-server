@@ -6,7 +6,8 @@ const cors = require("cors");
 const multer = require('multer')
 const bodyParser = require("body-parser")
 const serviceRoute = require("./routes/services")
-const subServiceRoute = require("./routes/subservices")
+const subServiceRoute = require("./routes/subservices");
+const router = require("./routes/services");
 
 
 
