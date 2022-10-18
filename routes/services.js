@@ -37,24 +37,46 @@ router.post("/addservice",async(req,res)=>{
     }
 })
 
-router.post("/addsubservice",async(req,res)=>{
-    console.log(req.body);
-
-    const {serviceName,subServiceName,image,description} =req.body;
-    
-    if(!serviceName || !subServiceName || !image || !description){
-        res.status(422).json("plz fill the data");
-    }
+router.get("/getservice", async(req,res) =>{
     try{
-            const addservice = new subServices({
-                serviceName,subServiceName,image,description
-            });
-            await addservice.save();
-            res.status(201).json(addservice);
-            console.log(addservice);
+        const userdata = await services.find();
+        res.status(201).json(userdata)
+        console.log(userdata);
     } catch(error){
         res.status(422).send(error);
     }
 })
+router.get("/getservice",async(req,res)=>{
+    try{
+        console.log(req.params);
+        const {id} = req.params;
+
+        const userindividual = await services.findById({_id:id});
+        console.log(userindividual);
+        res.status(201).json(userindividual);
+    }catch(error){
+        res.status(404).json(error);
+    }
+});
+
+// router.post("/addsubservice",async(req,res)=>{
+//     console.log(req.body);
+
+//     const {serviceName,subServiceName,image,description} =req.body;
+    
+//     if(!serviceName || !subServiceName || !image || !description){
+//         res.status(422).json("plz fill the data");
+//     }
+//     try{
+//             const addservice = new subServices({
+//                 serviceName,subServiceName,image,description
+//             });
+//             await addservice.save();
+//             res.status(201).json(addservice);
+//             console.log(addservice);
+//     } catch(error){
+//         res.status(422).send(error);
+//     }
+// })
 
 module.exports =router;
