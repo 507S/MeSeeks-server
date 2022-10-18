@@ -6,7 +6,7 @@ const User = require('./Model/userModel')
 const jwt = require('jsonwebtoken')
 
 
-app.use(cors())
+// app.use(cors())
 app.use(express.json())
 
 app.get('api/homepage', (req, res)=>{

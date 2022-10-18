@@ -3,8 +3,13 @@ const asyncHandler = require('express-async-handler')
 const User = require('../Model/userModel')
 
 const protect = asyncHandler(async (req, res, next) => {
-
-  const token = req.body.token
+  // console.log("here at middleware")
+  // console.log(req.headers)
+  // console.log(req.headers.authorization)
+  // console.log(req.headers.authorization.startsWith("Bearer"))
+  const {authorization} = req.headers
+  const token = authorization
+  // console.log(token)
   if (!token) {
     res.status(401)
     throw new Error('Not authorized, no token')
@@ -14,7 +19,7 @@ const protect = asyncHandler(async (req, res, next) => {
       // Get token from header
       console.log(token);
       // Verify token
-      const decoded = jwt.verify(token, process.env.JWT_SECRET)
+      const decoded = jwt.verify(token, 'brucewayneisbatman')
 
       // Get user from the token
       req.user = await User.findById(decoded.id).select('-password')
