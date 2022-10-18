@@ -1,6 +1,7 @@
 const services = require("../model/serviceSchema")
+const asyncHandler = require("express-async-handler")
 
-const addservice = async(req,res)=>{
+const addservice = asyncHandler( async(req,res)=>{
     console.log(req.body);
 
     const {name,description} =req.body;
@@ -28,8 +29,8 @@ const addservice = async(req,res)=>{
     } catch(error){
         res.status(422).send(error);
     }
-}
-const getservice = async(req,res) =>{
+})
+    const getservice = asyncHandler(async(req,res) =>{
     try{
         const userdata = await services.find();
         res.status(201).json(userdata)
@@ -37,6 +38,26 @@ const getservice = async(req,res) =>{
     } catch(error){
         res.status(422).send(error);
     }
-} 
+    })
 
-module.exports ={addservice, getservice}
+    const deleteservice = asyncHandler(async(req,res)=>{
+        try{
+            const {id} = req.params;
+    
+            // const currentservice = await services.findById({_id:id});
+        
+            // subServices.deleteMany({ serviceName: { $eq: currentservice.name } }).then(function(){
+            //     console.log("Data deleted"); // Success
+            // }).catch(function(error){
+            //     console.log(error); // Failure
+            // });
+            const deletedService = await services.findByIdAndDelete({_id:id});
+            
+            console.log(deletedService);
+            res.status(201).json(deletedService);
+        }catch(error){
+            res.status(422).json(error);
+        }
+    })
+
+module.exports ={addservice, getservice, deleteservice}
