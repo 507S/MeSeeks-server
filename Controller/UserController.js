@@ -4,7 +4,7 @@ const generateToken = require("../Utility/JWT-imp");
 
 const registerUser = asyncHandler(async (req, res) => {
     console.log(req.body)
-    const { firstname, lastname, username, email, password, confirmPassword, rememberMe } = req.body;
+    const { firstname, lastname, username, email, password, confirmPassword } = req.body;
 
     const usernameExists = await User.findOne({ username });
     const emailExists = await User.findOne({email});
@@ -18,11 +18,17 @@ const registerUser = asyncHandler(async (req, res) => {
       res.status(404).send(error);
       throw new Error(error);
     }
+    else if(password.length < 6){
+      error="Password should be of minimum 6 characters"
+      res.status(404).send(error)
+      throw new Error(error)
+    }
     else if(password !== confirmPassword){
       error="Passwords do not match"
       res.status(404).send(error)
       throw new Error(error)
     }
+    
   
     const user = await User.create({
         firstname,
@@ -30,7 +36,6 @@ const registerUser = asyncHandler(async (req, res) => {
         username, 
         email, 
         password, 
-        rememberMe
     });
   
     if (user) {
