@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "scripts": {
     "start": "nodemon app.js"
   },
@@ -13,5 +14,29 @@
     "nodemon": "^2.0.20",
     "path": "^0.12.7",
     "uuid": "^9.0.0"
+=======
+  "name": "index.js",
+  "version": "1.0.0",
+  "description": "meSeeks",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "express-async-handler": "^1.2.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongodb": "^4.10.0",
+    "mongoose": "^6.6.1",
+    "mongoose-findorcreate": "^3.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+>>>>>>> a456a97e4d71a39ab4f5e03d531081e6262c1ac3
   }
 }
