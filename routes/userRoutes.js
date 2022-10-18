@@ -1,6 +1,6 @@
 const express = require("express");
 const {registerUser, authUser, reserveUser, logoutUser} = require("../Controller/UserController");
-const{workerInfo} = require("../Controller/WorkerController")
+const{registerWorker, authWorker, updateWorkerProfile} = require("../Controller/WorkerController")
 const router = express.Router();
 const {protect} = require("../Middleware/AuthMiddleware")
 
@@ -11,6 +11,6 @@ router.route("/login").post(authUser);
 // router.route('/homepage').post(protect, reserveUser)
 router.route('/logout').get(logoutUser)
 router.route('/').get(protect)
-router.route('/workerProfile').post(protect, workerInfo)
-
+router.route('/registerWorker').post(registerWorker)
+router.route('/loginWorker').post(authWorker)
 module.exports = router;
