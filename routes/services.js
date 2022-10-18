@@ -79,4 +79,14 @@ router.get("/getservice",async(req,res)=>{
 //     }
 // })
 
+router.get("/get-service-category", async (req, res) => {
+    UserTasksModel.find({}, (data, err) => {
+      if (data) {
+        res.send(data);
+      } else {
+        res.send(err);
+      }
+    });
+  });
+
 module.exports =router;
