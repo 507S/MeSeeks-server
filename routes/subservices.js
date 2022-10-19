@@ -5,25 +5,25 @@ const { v4: uuidv4 } = require('uuid');
 let path = require('path');
 const subServices = require("../model/subServiceSchema");
 
-// router.post("/addsubservice",async(req,res)=>{
-//     console.log(req.body);
+router.post("/addsubservice",async(req,res)=>{
+    console.log(req.body);
 
-//     const {serviceName,subServiceName,image,description} =req.body;
+    const {serviceName,subServiceName,description} =req.body;
     
-//     if(!serviceName || !subServiceName || !image || !description){
-//         res.status(422).json("plz fill the data");
-//     }
-//     try{
-//             const addservice = new subServices({
-//                 serviceName,subServiceName,image,description
-//             });
-//             await addservice.save();
-//             res.status(201).json(addservice);
-//             console.log(addservice);
-//     } catch(error){
-//         res.status(422).send(error);
-//     }
-// })
+    if(!serviceName || !subServiceName || !description){
+        res.status(422).json("plz fill the data");
+    }
+    try{
+            const addservice = new subServices({
+                serviceName,subServiceName,description
+            });
+            await addservice.save();
+            res.status(201).json(addservice);
+            console.log(addservice);
+    } catch(error){
+        res.status(422).send(error);
+    }
+})
 
 // const Storage = multer.diskStorage({
 //     destination:"uploads",
@@ -99,5 +99,7 @@ router.route('/upload').post(upload.single('image'), (req, res) => {
            .then(() => res.json('Service Added'))
            .catch(err => res.status(400).json('Error: ' + err));
 });
+
+
 
 module.exports =router;
