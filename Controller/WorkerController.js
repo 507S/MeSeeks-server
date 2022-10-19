@@ -23,6 +23,11 @@ const registerWorker = asyncHandler(async (req, res) => {
       res.status(404).send(error)
       throw new Error(error)
     }
+    else if(password.length< 6){
+      error="Password must be at least 6 characters"
+      res.status(404).send(error)
+      throw new Error(error)
+    }
   
     const worker = await Worker.create({
         firstname,

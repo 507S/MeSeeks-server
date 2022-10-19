@@ -76,8 +76,7 @@ const authUser = asyncHandler(async (req, res) => {
   })
   
   const logoutUser = asyncHandler(async(req, res) => {
-    res.cookie('jwt', '', {maxAge: 1});
-    res.redirect('/');
+    localStorage.clear();
   })
 
 module.exports = {registerUser, authUser, reserveUser, logoutUser};
