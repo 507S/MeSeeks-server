@@ -7,6 +7,9 @@ const jwt = require('jsonwebtoken')
 const bodyParser = require("body-parser")
 const serviceRoute = require("./routes/services")
 const subServiceRoute = require("./routes/subservices");
+const bannedWorkerRoute = require("./routes/banworker");
+const workerRoute = require("./routes/worker");
+
 require("./db/conn");
 
 
@@ -20,6 +23,10 @@ app.use(express.json());
 
 app.use("/api/services", serviceRoute);
 app.use("/api/subservices", subServiceRoute);
+app.use("/api/bannedworker", bannedWorkerRoute);
+app.use("/api/worker", workerRoute);
+// app.use("/api/admin", workerRoute);
+
 
 app.get('api/homepage', (req, res)=>{
     res.json("Welcome to the homepage of MeSeeks")

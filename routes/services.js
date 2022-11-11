@@ -5,6 +5,16 @@ const serviceController = require("../controller/serviceController")
 
 //get services
 router.get("/getservice",serviceController.getservice);
+// router.get("/getservice",async(req,res) =>{
+//     try{
+//         const userdata = await services.find();
+//         res.status(201).json(userdata)
+//         console.log(userdata);
+//     } catch(error){
+//         res.status(422).send(error);
+//     }
+//     });
+
 
 // add services
 router.post("/addservice",serviceController.addservice);
