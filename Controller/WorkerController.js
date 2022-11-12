@@ -4,7 +4,7 @@ const generateToken = require("../Utility/JWT-imp")
 
 const registerWorker = asyncHandler(async (req, res) => {
     console.log(req.body)
-    const { firstname, lastname, username, email, password, confirmPassword, location, profession } = req.body;
+    const { firstname, lastname, username, email, password, confirmPassword, phoneNumber, location, profession } = req.body;
 
     const usernameExists = await Worker.findOne({ username });
     const emailExists = await Worker.findOne({email});
@@ -34,7 +34,8 @@ const registerWorker = asyncHandler(async (req, res) => {
         lastname,
         username, 
         email, 
-        password, 
+        password,
+        phoneNumber, 
         location,
         profession
     });
@@ -74,12 +75,13 @@ const authWorker = asyncHandler(async (req, res) => {
 
     
 const updateWorkerProfile = asyncHandler(async (req, res) => {
-    const worker = await Worker.findById(req.worker._id);
+    console.log(req.body)
+    const worker = await Worker.findById(req.email);
   
     if (worker) {
       worker.name = req.body.name || worker.name;
       worker.email = req.body.email || worker.email;
-      worker.pic = req.body.pic || worker.pic;
+      worker.phone = req.body.phoneNumber || worker.phoneNumber
       if (req.body.password) {
         worker.password = req.body.password;
       }

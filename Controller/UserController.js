@@ -1,7 +1,7 @@
 const asyncHandler = require("express-async-handler")
 const User = require("../Model/userModel")
 const generateToken = require("../Utility/JWT-imp");
-
+const WorkList = require("../Model/workListSchema")
 const registerUser = asyncHandler(async (req, res) => {
     console.log(req.body)
     const { firstname, lastname, username, email, password, confirmPassword } = req.body;
@@ -79,4 +79,35 @@ const authUser = asyncHandler(async (req, res) => {
     localStorage.clear();
   })
 
-module.exports = {registerUser, authUser, reserveUser, logoutUser};
+  const scheduleAppointment = asyncHandler(async(req,res)=>{
+    const {workerType, location, address, phone} = req.body.formData
+    const status = false
+    let list = req.body.workList
+
+    console.log(list)
+    console.log("***********")
+  
+    const workListModel = await WorkList.create({
+      workerType,
+      location,
+      address,
+      phone,
+      list,
+      status
+    })
+    console.log(workListModel.list)
+
+    res.status(200).end()
+  })
+
+  const getListOfWork = asyncHandler(async(req,res)=>{
+    WorkList.find({  })
+    .then((data) => {
+        console.log('Data: ', data);
+        res.json(data);
+    })
+    .catch((error) => {
+        console.log('error: ', error);
+    });
+});
+module.exports = {registerUser, authUser, reserveUser, logoutUser, scheduleAppointment, getListOfWork };

@@ -11,7 +11,7 @@ const router = require("./routes/services");
 
 
 
-const port = 8003;
+const port = 1337;
 
 //middleware
 app.use(bodyParser.json())
@@ -19,18 +19,6 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 app.use(cors());
 app.use(express.json());
-
-//storage
-// const Storage = multer.diskStorage({
-//     destination:'upload',
-//     filename:(req, file , cb) =>{
-//         cb(null , file.originalName);
-//     },
-// });
-
-// const upload = multer ({
-//     storage :Storage
-// }).single('testImage')
 
 app.use("/api/services", serviceRoute);
 app.use("/api/subservices", subServiceRoute);

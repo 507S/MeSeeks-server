@@ -3,11 +3,22 @@ const app = express()
 const mongoose = require('mongoose')
 const cors = require('cors')
 const User = require('./Model/userModel')
-const jwt = require('jsonwebtoken')
+const bodyParser = require("body-parser")
+const serviceRoute = require("./routes/services")
+const subServiceRoute = require("./routes/subservices");
+// require("./db/conn");
 
 
-app.use(cors())
-app.use(express.json())
+// app.use(cors())
+//middleware
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended: false}));
+
+app.use(cors());
+app.use(express.json());
+
+app.use("/api/services", serviceRoute);
+app.use("/api/subservices", subServiceRoute);
 
 app.get('api/homepage', (req, res)=>{
     res.json("Welcome to the homepage of MeSeeks")
@@ -27,6 +38,7 @@ mongoose.connect('mongodb+srv://salmanjensen:sal@cluster0.yx3sl49.mongodb.net/?r
 .catch(e=>console.log(e));
 
 
-port = 1337
-app.listen(port)
-console.log(`Server has started and is listening to port: ${port}`)
+const port = 1337
+app.listen(port, ()=>{
+    console.log(`server is running on port number ${port}`);
+});
