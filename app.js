@@ -12,7 +12,7 @@ const router = require("./routes/services");
 
 
 
-const port = 8003;
+const port = 1337;
 
 //middleware
 app.use(bodyParser.json())
