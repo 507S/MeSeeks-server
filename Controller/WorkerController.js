@@ -56,7 +56,7 @@ const registerWorker = asyncHandler(async (req, res) => {
 const authWorker = asyncHandler(async (req, res) => {
     console.log(req.body)
     const { email, password } = req.body;
-  
+    console.log(password)
     const worker = await Worker.findOne({ email });
   
     if (worker && (await worker.matchPassword(password))) {

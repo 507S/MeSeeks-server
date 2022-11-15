@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require("bcrypt")
 
 const workerSchema = mongoose.Schema({
     firstname: {type:String, required: true},
@@ -13,6 +14,19 @@ const workerSchema = mongoose.Schema({
     profession: {type: String, required:true},
 })
 
+workerSchema.methods.matchPassword = async function (enteredPassword) {
+    return await bcrypt.compare(enteredPassword, this.password);
+   };
+     
+     // will encrypt password everytime its saved
+workerSchema.pre("save", async function (next) {
+    if (!this.isModified("password")) {
+        next();
+}
+
+const salt = await bcrypt.genSalt(10);
+this.password = await bcrypt.hash(this.password, salt);
+});
 const Worker = mongoose.model("Worker", workerSchema)
 
 module.exports = Worker;
