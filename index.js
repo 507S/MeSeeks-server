@@ -35,18 +35,18 @@ app.get('api/homepage', (req, res)=>{
 const userRoutes = require('./routes/userRoutes');
 app.use("/api", userRoutes); 
 
-const connectionParams={
-    useNewUrlParser: true,
-    useUnifiedTopology: true 
-}
-mongoose.connect('mongodb+srv://salmanjensen:sal@cluster0.yx3sl49.mongodb.net/?retryWrites=true&w=majority',
-    connectionParams,
-)
-.then(()=>console.log('connected'))
-.catch(e=>console.log(e));
+// const connectionParams={
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true 
+// }
+// mongoose.connect('mongodb+srv://salmanjensen:sal@cluster0.yx3sl49.mongodb.net/?retryWrites=true&w=majority',
+//     connectionParams,
+// )
+// .then(()=>console.log('connected'))
+// .catch(e=>console.log(e));
 
 
-const port = 1337
+const port = 8003
 app.listen(port, ()=>{
     console.log(`server is running on port number ${port}`);
 });
