@@ -38,14 +38,14 @@ const connectionParams={
     useNewUrlParser: true,
     useUnifiedTopology: true 
 }
-mongoose.connect('mongodb+srv://salmanjensen:sal@cluster0.yx3sl49.mongodb.net/?retryWrites=true&w=majority',
+mongoose.connect('mongodb://salmanjensen:sal@ac-36yxasj-shard-00-00.yx3sl49.mongodb.net:27017,ac-36yxasj-shard-00-01.yx3sl49.mongodb.net:27017,ac-36yxasj-shard-00-02.yx3sl49.mongodb.net:27017/?ssl=true&replicaSet=atlas-11gshm-shard-0&authSource=admin&retryWrites=true&w=majority',
     connectionParams,
 )
 .then(()=>console.log('connected'))
 .catch(e=>console.log(e));
 
 
-const port = 8003
+const port = 1337
 app.listen(port, ()=>{
     console.log(`server is running on port number ${port}`);
 });
