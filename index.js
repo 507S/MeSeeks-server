@@ -45,7 +45,7 @@ mongoose.connect('mongodb://salmanjensen:sal@ac-36yxasj-shard-00-00.yx3sl49.mong
 .catch(e=>console.log(e));
 
 
-const port = 1337
+const port = 8003
 app.listen(port, ()=>{
     console.log(`server is running on port number ${port}`);
 });

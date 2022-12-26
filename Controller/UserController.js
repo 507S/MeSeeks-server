@@ -103,9 +103,8 @@ const scheduleAppointment = asyncHandler(async (req, res) => {
 
 const getListOfWork = asyncHandler(async (req, res) => {
   let uid = req.params.uid
-  console.log("*******this is uid-**************")
-  console.log(uid)
-  uid = "6373b2c5c928027c8be6dc22"
+  // console.log("*******this is uid-**************")
+  // console.log(uid)
   WorkList.find({uid})
     .then((data) => {
       // console.log('Data: ', data);
@@ -115,4 +114,18 @@ const getListOfWork = asyncHandler(async (req, res) => {
       console.log('error: ', error);
     });
 });
-module.exports = { registerUser, authUser, reserveUser, logoutUser, scheduleAppointment, getListOfWork };
+
+const deleteWork = asyncHandler(async(req,res) =>{
+  // console.log(req.body)
+  let id = req.body.id
+  console.log(id)
+  WorkList.findOneAndDelete({_id: id})
+    .then((doc)=>{
+      console.log("removed: ", doc)
+    })
+    .catch((error)=>{
+      console.log("remove error: ", error)
+    })
+})
+
+module.exports = { registerUser, authUser, reserveUser, logoutUser, scheduleAppointment, getListOfWork, deleteWork };

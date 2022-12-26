@@ -29,7 +29,6 @@ const registerWorker = asyncHandler(async (req, res) => {
     res.status(404).send(error)
     throw new Error(error)
   }
-
   const worker = await Worker.create({
     firstname,
     lastname,
@@ -57,9 +56,8 @@ const registerWorker = asyncHandler(async (req, res) => {
 const authWorker = asyncHandler(async (req, res) => {
   console.log(req.body)
   const { email, password } = req.body;
-  console.log(password)
   const worker = await Worker.findOne({ email });
-
+  console.log(worker)
   if (worker && (await worker.matchPassword(password))) {
     res.json({
       id: worker._id,
