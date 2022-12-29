@@ -10,7 +10,7 @@ const subServiceSchema = new mongoose.Schema({
         required: true,
     },
     image: {
-        data: Buffer,
+        data: String,
         contentType: String,
         // type : String,
         // required: true

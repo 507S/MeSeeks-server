@@ -5,7 +5,7 @@ const getSubServices = asyncHandler( async(req,res)=>{
     try{
         const subService = await subServices.find();
         res.status(201).json(subService)
-        console.log(subService)
+        // console.log(subService)
     }catch(error){
         res.status(422).send(error);
     }

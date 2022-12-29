@@ -6,7 +6,7 @@ const banController = require("../controller/banController")
 router.get("/getbannedlist",banController.getBannedWorker);
 
 // add services
-router.post("/addbannedworker",banController.addBannedWorker);
+// router.post("/addbannedworker",banController.addBannedWorker);
 
 
 //get individual service

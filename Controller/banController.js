@@ -1,29 +1,29 @@
-const bannedWorker = require("../model/banWorkerSchema")
+const bannedWorker = require("../model/msg/adminMsgSchema")
 // const worker = require("../model/workerModsel")
 const asyncHandler = require("express-async-handler");
 
 
-const addBannedWorker = asyncHandler( async(req,res)=>{
-    // console.log(req.body);
+// const addBannedWorker = asyncHandler( async(req,res)=>{
+//     // console.log(req.body);
 
-    const {name,reason} =req.body;
-    // const banned = true;
+//     const {name,reason} =req.body;
+//     // const banned = true;
     
-    if(!name || !reason){
-        res.status(422).json("plz fill the data");
-    }
-    try{
-            const addBannedWorker = new bannedWorker({
-                name,reason
-            });
+//     if(!name || !reason){
+//         res.status(422).json("plz fill the data");
+//     }
+//     try{
+//             const addBannedWorker = new bannedWorker({
+//                 name,reason
+//             });
 
-            await addBannedWorker.save();
-            res.status(201).json(addBannedWorker);
-            console.log(addBannedWorker);
-    } catch(error){
-        res.status(422).send(error);
-    }
-})
+//             await addBannedWorker.save();
+//             res.status(201).json(addBannedWorker);
+//             console.log(addBannedWorker);
+//     } catch(error){
+//         res.status(422).send(error);
+//     }
+// })
     const getBannedWorker = asyncHandler(async(req,res) =>{
     try{
         const userdata = await bannedWorker.find();
@@ -59,4 +59,4 @@ const addBannedWorker = asyncHandler( async(req,res)=>{
     //     }
     // })
 
-    module.exports={addBannedWorker,getBannedWorker,unbanWorker}
+    module.exports={getBannedWorker,unbanWorker}

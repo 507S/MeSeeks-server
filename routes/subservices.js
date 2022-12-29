@@ -10,7 +10,7 @@ const subServiceController = require("../controller/subServiceController")
 //     console.log(req.body);
 
 //     const {serviceName,subServiceName,description} =req.body;
-    
+
 //     if(!serviceName || !subServiceName || !description){
 //         res.status(422).json("plz fill the data");
 //     }
@@ -27,37 +27,37 @@ const subServiceController = require("../controller/subServiceController")
 // })
 
 const Storage = multer.diskStorage({
-    destination:"uploads",
-    filename:(req, file , cb) =>{
-        cb(null , file.originalname);
+    destination: "uploads",
+    filename: (req, file, cb) => {
+        cb(null, file.originalname);
     },
 });
 
-const upload = multer ({
-    storage:Storage, limits: { fieldSize: 25 * 1024 * 1024 }
+const upload = multer({
+    storage: Storage, limits: { fieldSize: 25 * 1024 * 1024 }
 }).single('image')
 
-router.post('/upload',upload,(req,res)=>{
+router.post('/upload', upload, (req, res) => {
     // upload(req, res, (err)=>{
-        console.log(JSON.stringify(req.body))
+    // console.log(JSON.stringify(req.body))
 
-            try{
-            const newSubService = new subServices({
-                serviceName: req.body.serviceName,
-                subServiceName:req.body.subServiceName,
-                image:{
-                    data :req.body.image,
-                    contentType: "image/png"
-                },
-                description: req.body.description
-            });
-            newSubService.save()
-            .then(()=>res.send('successfully uploaded'))
-            .catch(err=>console.log(err))
-        }
-        catch(error){
-            console.log(error);
-        }
+    try {
+        const newSubService = new subServices({
+            serviceName: req.body.serviceName,
+            subServiceName: req.body.subServiceName,
+            image: {
+                data: req.body.image,
+                contentType: "image/png"
+            },
+            description: req.body.description
+        });
+        newSubService.save()
+            .then(() => res.send('successfully uploaded'))
+            .catch(err => console.log(err))
+    }
+    catch (error) {
+        console.log(error);
+    }
 
 })
 
@@ -75,21 +75,40 @@ router.post('/upload',upload,(req,res)=>{
 //     }
 // });
 
-router.patch("/updateSubService/:id",async(req,res)=>{
-    try{
-        const {id} = req.params;
+router.patch("/updateSubService/:id",upload, async (req, res) => {
+    try {
+        const { id } = req.params;
+        // const newSubService = new subServices({
+        //     serviceName: req.body.serviceName,
+        //     subServiceName: req.body.subServiceName,
+        //     image: {
+        //         data: req.body.image,
+        //         contentType: "image/png"
+        //     },
+        //     description: req.body.description
+        // });
 
-        const updateduser = await subServices.findByIdAndUpdate(id,req.body,{
-            new:true
-        });
+        const updateduser = await subServices.findByIdAndUpdate(id, {
+            serviceName: req.body.serviceName,
+            subServiceName: req.body.subServiceName,
+            image: {
+                data: req.body.image,
+                contentType: "image/png"
+            },
+            description: req.body.description
+        } ,
+            {
+                new: true
+            }
+        );
         console.log(updateduser);
         res.status(201).json(updateduser);
-    }catch(error){
+    } catch (error) {
         res.status(422).json(error);
     }
 });
 
-router.get('/getsubservices',subServiceController.getSubServices);
+router.get('/getsubservices', subServiceController.getSubServices);
 
 router.get('/findsubservices', subServiceController.findSubServices);
 
@@ -137,4 +156,4 @@ router.delete('/deletesubservice', subServiceController.deleteSubService);
 
 
 
-module.exports =router;
+module.exports = router;
