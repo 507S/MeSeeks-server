@@ -96,7 +96,7 @@ const scheduleAppointment = asyncHandler(async (req, res) => {
     phone,
     list,
     status,
-    accetpedBy,
+    acceptedBy,
     completed
   })
   console.log(workListModel)
