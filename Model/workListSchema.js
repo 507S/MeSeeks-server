@@ -36,6 +36,15 @@ const workListSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+
+    accetpedBy: {
+        type: String
+    },
+
+    completed:{
+        type: String
+    },
+
     createdAt: {type: Date, default: Date.now}
     
 });

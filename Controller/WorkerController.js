@@ -63,6 +63,7 @@ const authWorker = asyncHandler(async (req, res) => {
       id: worker._id,
       username: worker.username,
       email: worker.email,
+      category: worker.profession,
       token: generateToken(worker._id),
     });
   } else {
@@ -112,4 +113,32 @@ const getWorkerListOfWork = asyncHandler(async (req, res) => {
     });
 });
 
-module.exports = { registerWorker, authWorker, updateWorkerProfile, getWorkerListOfWork}
+const categorizeWork = asyncHandler(async(req,res)=>{
+  res.status(201)
+  let category = req.params.category
+  category="Plumber"
+  WorkList.find({workerType: category, status:'false'})
+    .then((data)=>{
+      // console.log('Worker end data:', data);
+      res.json(data)
+    })
+    .catch((error)=>{
+      console.log("Error:", error)
+    })
+})
+
+const acceptWork = asyncHandler(async(req,res)=>{
+  const {id:work_id, uid} = req.body
+  console.log("work id and worker id: ", work_id, uid)
+  WorkList.findByIdAndUpdate(work_id, {status: 'true', location: 'ashina', acceptedBy: uid})
+    .then((data)=>{
+      console.log("Updated the status of work")
+      console.log(data)
+    })
+    .catch((error)=>{
+      console.log("Error: ", error)
+    })
+
+})
+
+module.exports = { registerWorker, authWorker, updateWorkerProfile, getWorkerListOfWork, categorizeWork, acceptWork}

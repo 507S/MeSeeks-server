@@ -86,7 +86,8 @@ const scheduleAppointment = asyncHandler(async (req, res) => {
 
   console.log(list)
   console.log("***********")
-
+  let acceptedBy = null
+  let completed = 'false'
   const workListModel = await WorkList.create({
     uid,
     workerType,
@@ -94,7 +95,9 @@ const scheduleAppointment = asyncHandler(async (req, res) => {
     address,
     phone,
     list,
-    status
+    status,
+    accetpedBy,
+    completed
   })
   console.log(workListModel)
 
