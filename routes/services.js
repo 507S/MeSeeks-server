@@ -1,57 +1,33 @@
-const express = require("express");
-const services = require("../models/serviceSchema");
-const subServices = require("../models/subServiceSchema");
+const express = require("express");;
 const router = express.Router();
+const services = require("../model/serviceSchema")
+const serviceController = require("../controller/serviceController")
+
+//get services
+router.get("/getservice",serviceController.getservice);
+// router.get("/getservice",async(req,res) =>{
+//     try{
+//         const userdata = await services.find();
+//         res.status(201).json(userdata)
+//         console.log(userdata);
+//     } catch(error){
+//         res.status(422).send(error);
+//     }
+//     });
+
 
 // add services
-router.post("/addservice",async(req,res)=>{
-    console.log(req.body);
+router.post("/addservice",serviceController.addservice);
 
-    const {name,description} =req.body;
-    
-    if(!name || !description){
-        res.status(422).json("plz fill the data");
-    }
-    try{
 
-        const preservice = await services.findOne({name:name});
-        console.log(preservice);
+//get individual service
+// router.get("/getservice/:id",function(req,res){serviceController.getindividualservice});
 
-        if(preservice){
-            res.status(422).json("this service is already present")
-        }
-        else{
-            const addservice = new services({
-                name,description
-            });
+//delete category
+router.delete("/deleteservice/:id",serviceController.deleteservice);
 
-            await addservice.save();
-            res.status(201).json(addservice);
-            console.log(addservice);
-        }
-    } catch(error){
-        res.status(422).send(error);
-    }
-})
 
-router.post("/addsubservice",async(req,res)=>{
-    console.log(req.body);
 
-    const {serviceName,subServiceName,image,description} =req.body;
-    
-    if(!serviceName || !subServiceName || !image || !description){
-        res.status(422).json("plz fill the data");
-    }
-    try{
-            const addservice = new subServices({
-                serviceName,subServiceName,image,description
-            });
-            await addservice.save();
-            res.status(201).json(addservice);
-            console.log(addservice);
-    } catch(error){
-        res.status(422).send(error);
-    }
-})
+
 
 module.exports =router;
