@@ -8,6 +8,7 @@ const serviceRoute = require("./routes/services")
 const subServiceRoute = require("./routes/subservices");
 const bannedWorkerRoute = require("./routes/banworker");
 const workerRoute = require("./routes/worker");
+const adminRoute = require("./routes/adminMsg");
 
 require("./db/conn");
 // require("./db/conn");
@@ -25,6 +26,7 @@ app.use("/api/services", serviceRoute);
 app.use("/api/subservices", subServiceRoute);
 app.use("/api/bannedworker", bannedWorkerRoute);
 app.use("/api/worker", workerRoute);
+app.use("/api/admin", adminRoute);
 // app.use("/api/admin", workerRoute);
 
 
