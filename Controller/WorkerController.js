@@ -141,4 +141,19 @@ const acceptWork = asyncHandler(async(req,res)=>{
 
 })
 
-module.exports = { registerWorker, authWorker, updateWorkerProfile, getWorkerListOfWork, categorizeWork, acceptWork}
+const getPendingWork = asyncHandler(async(req,res)=>{
+  const uid = req.params.uid
+  console.log(uid)
+  WorkList.find({acceptedBy: uid, status: 'true', completed: 'false'})
+    .then((data)=>{
+      console.log("This is all pending work of uid", uid)
+      console.log(data)
+      res.json(data)
+    })
+    .catch((error)=>{
+      console.log("Error: ", error)
+      res.json(error)
+    })
+})
+
+module.exports = { registerWorker, authWorker, updateWorkerProfile, getWorkerListOfWork, categorizeWork, acceptWork, getPendingWork}

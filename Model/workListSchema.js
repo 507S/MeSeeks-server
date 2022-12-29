@@ -37,7 +37,7 @@ const workListSchema = new mongoose.Schema({
         required: true
     },
 
-    accetpedBy: {
+    acceptedBy: {
         type: String
     },
 
