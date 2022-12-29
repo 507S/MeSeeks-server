@@ -1,6 +1,6 @@
 const express = require("express");
-const {registerUser, authUser, reserveUser, logoutUser, scheduleAppointment, getListOfWork} = require("../Controller/UserController");
-const{registerWorker, authWorker, updateWorkerProfile} = require("../Controller/WorkerController")
+const {registerUser, authUser, reserveUser, logoutUser, scheduleAppointment, getListOfWork, deleteWork} = require("../Controller/UserController");
+const{registerWorker, authWorker, updateWorkerProfile, getWorkerListOfWork, categorizeWork, acceptWork} = require("../Controller/WorkerController")
 const router = express.Router();
 const {protect} = require("../Middleware/AuthMiddleware")
 
@@ -14,5 +14,11 @@ router.route('/').get(protect)
 router.route('/registerWorker').post(registerWorker)
 router.route('/loginWorker').post(authWorker)
 router.route('/appointment-status').post(scheduleAppointment)
-router.route('/listofwork').get(getListOfWork)
+router.route('/listofwork/:uid').get(getListOfWork)
+router.route('/delete-work').post(deleteWork)
+router.route('/workers/a-r/:category').get(categorizeWork)
+router.route('/workers/accept-work').post(acceptWork)
+//worker routes
+router.route('/work-request').get(getWorkerListOfWork)
+
 module.exports = router;

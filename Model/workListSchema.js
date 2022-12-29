@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 
 const workListSchema = new mongoose.Schema({
+    uid:{
+        type: String,
+        required: true
+    },
     workerType: {
         type: String,
         required: true
@@ -32,6 +36,15 @@ const workListSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+
+    accetpedBy: {
+        type: String
+    },
+
+    completed:{
+        type: String
+    },
+
     createdAt: {type: Date, default: Date.now}
     
 });
