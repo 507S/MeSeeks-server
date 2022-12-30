@@ -34,22 +34,19 @@ const Storage = multer.diskStorage({
 });
 
 const upload = multer ({
-    storage:Storage
+    storage:Storage, limits: { fieldSize: 25 * 1024 * 1024 }
 }).single('image')
 
 router.post('/upload',upload,(req,res)=>{
     // upload(req, res, (err)=>{
         console.log(JSON.stringify(req.body))
-        // if(err){
-        //     console.log(err)
-        // }
-        // else{
+
             try{
             const newSubService = new subServices({
                 serviceName: req.body.serviceName,
                 subServiceName:req.body.subServiceName,
                 image:{
-                    data :req.file.filename,
+                    data :req.body.image,
                     contentType: "image/png"
                 },
                 description: req.body.description
@@ -61,9 +58,36 @@ router.post('/upload',upload,(req,res)=>{
         catch(error){
             console.log(error);
         }
-        // }
-    // })
+
 })
+
+// router.patch("/updateSubService/:id",async(req,res)=>{
+//     try{
+//         const {id} = req.params;
+
+//         const updateduser = await subServices.findByIdAndUpdate(id,req.body,{
+//             new:true
+//         });
+//         console.log(updateduser);
+//         res.status(201).json(updateduser);
+//     }catch(error){
+//         res.status(422).json(error);
+//     }
+// });
+
+router.patch("/updateSubService/:id",async(req,res)=>{
+    try{
+        const {id} = req.params;
+
+        const updateduser = await subServices.findByIdAndUpdate(id,req.body,{
+            new:true
+        });
+        console.log(updateduser);
+        res.status(201).json(updateduser);
+    }catch(error){
+        res.status(422).json(error);
+    }
+});
 
 router.get('/getsubservices',subServiceController.getSubServices);
 
