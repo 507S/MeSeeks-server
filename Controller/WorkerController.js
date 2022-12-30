@@ -81,33 +81,33 @@ const authWorker = asyncHandler(async (req, res) => {
 });
 
 
-const updateWorkerProfile = asyncHandler(async (req, res) => {
-  console.log(req.body)
-  const worker = await Worker.findById(req.email);
+// const updateWorkerProfile = asyncHandler(async (req, res) => {
+//   console.log(req.body)
+//   const worker = await Worker.findById(req.email);
 
-  if (worker) {
-    worker.name = req.body.name || worker.name;
-    worker.email = req.body.email || worker.email;
-    worker.phone = req.body.phoneNumber || worker.phoneNumber
-    if (req.body.password) {
-      worker.password = req.body.password;
-    }
+//   if (worker) {
+//     worker.name = req.body.name || worker.name;
+//     worker.email = req.body.email || worker.email;
+//     worker.phone = req.body.phoneNumber || worker.phoneNumber
+//     if (req.body.password) {
+//       worker.password = req.body.password;
+//     }
 
-    const updatedworker = await worker.save();
+//     const updatedworker = await worker.save();
 
-    res.json({
-      _id: updatedworker._id,
-      name: updatedworker.name,
-      email: updatedworker.email,
-      pic: updatedworker.pic,
-      isAdmin: updatedworker.isAdmin,
-      token: generateToken(updatedworker._id),
-    });
-  } else {
-    res.status(404);
-    throw new Error("worker Not Found");
-  }
-});
+//     res.json({
+//       _id: updatedworker._id,
+//       name: updatedworker.name,
+//       email: updatedworker.email,
+//       pic: updatedworker.pic,
+//       isAdmin: updatedworker.isAdmin,
+//       token: generateToken(updatedworker._id),
+//     });
+//   } else {
+//     res.status(404);
+//     throw new Error("worker Not Found");
+//   }
+// });
 
 const getWorkerListOfWork = asyncHandler(async (req, res) => {
   WorkList.find({})
@@ -162,6 +162,7 @@ const getPendingWork = asyncHandler(async(req,res)=>{
     })
 })
 
+<<<<<<< HEAD
 const getCompletedWork = asyncHandler(async(req,res)=>{
   const uid = req.params.uid
   console.log("this is uid latest", uid)
@@ -179,3 +180,42 @@ const getCompletedWork = asyncHandler(async(req,res)=>{
 })
 
 module.exports = { registerWorker, authWorker, updateWorkerProfile, getWorkerListOfWork, categorizeWork, acceptWork, getPendingWork, getCompletedWork}
+=======
+const updateWorkerProfile = asyncHandler (async (req, res) => {
+  console.log("at update profile  ")
+  try {
+      const { id } = req.params;
+      const updateduser = await Worker.findByIdAndUpdate(id, {
+          username : req.body.username,
+          email: req.body.email,
+          phoneNumber: req.body.phoneNumber,
+          image: {
+              data: req.body.image,
+              contentType: "image/png"
+          },
+          location: req.body.location
+      } ,
+          {
+              new: true
+          }
+      );
+      console.log(updateduser);
+      res.status(201).json(updateduser);
+  } catch (error) {
+      res.status(422).json(error);
+  }
+})
+
+const getworker = asyncHandler(async(req,res) =>{
+  const {id}= req.params;
+  try{
+      const userdata = await Worker.findById({_id:id});
+      res.status(201).json(userdata)
+      console.log(userdata);
+  } catch(error){
+      res.status(422).send(error);
+  }
+  })
+
+module.exports = { registerWorker, getworker,authWorker, updateWorkerProfile, getWorkerListOfWork, categorizeWork, acceptWork, getPendingWork}
+>>>>>>> 9a5cd89f92dacbf74da077aa57391d6c7558db95

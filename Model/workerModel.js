@@ -12,6 +12,10 @@ const workerSchema = mongoose.Schema({
     token:{type: String },
     location: {type: String, required:true},
     profession: {type: String, required:true},
+    image:{
+        data: String,
+        contentType : String
+    }
 })
 
 workerSchema.methods.matchPassword = async function (enteredPassword) {
