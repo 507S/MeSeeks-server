@@ -157,7 +157,7 @@ const getPendingWork = asyncHandler(async(req,res)=>{
 })
 
 const updateWorkerProfile = asyncHandler (async (req, res) => {
-  console.log("at update profile")
+  console.log("at update profile  ")
   try {
       const { id } = req.params;
       const updateduser = await Worker.findByIdAndUpdate(id, {
@@ -181,4 +181,15 @@ const updateWorkerProfile = asyncHandler (async (req, res) => {
   }
 })
 
-module.exports = { registerWorker, authWorker, updateWorkerProfile, getWorkerListOfWork, categorizeWork, acceptWork, getPendingWork}
+const getworker = asyncHandler(async(req,res) =>{
+  const {id}= req.params;
+  try{
+      const userdata = await Worker.findById({_id:id});
+      res.status(201).json(userdata)
+      console.log(userdata);
+  } catch(error){
+      res.status(422).send(error);
+  }
+  })
+
+module.exports = { registerWorker, getworker,authWorker, updateWorkerProfile, getWorkerListOfWork, categorizeWork, acceptWork, getPendingWork}

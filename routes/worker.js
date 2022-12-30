@@ -7,6 +7,7 @@ const appealMsgController = require("../controller/msg/appealMsgController")
 router.post("/sendappealmsg/:id",appealMsgController.sendAppealMsg);
 
 router.get("/getappealmsg",appealMsgController.getAppealMsg);
+router.get("/getworker/:id",workerController.getworker);
 
 const Storage = multer.diskStorage({
     destination: "uploads",
