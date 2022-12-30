@@ -9,6 +9,9 @@ const appealMsgSchema = new mongoose.Schema({
         type: String,
         required: true,     
     },
+    worker_uid:{
+        type: String
+    },
     createdAt: {type: Date, default: Date.now}
     
 });

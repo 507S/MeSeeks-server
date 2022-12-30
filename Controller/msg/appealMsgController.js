@@ -5,7 +5,12 @@ const asyncHandler = require("express-async-handler");
 const sendAppealMsg = asyncHandler(async (req, res) => {
     console.log(req.body);
 
-    const { name, msg } = req.body;
+    const {id} = req.params;
+
+    const name = req.body.name;
+    const msg = req.body.msg;
+    const worker_uid = id;
+
 
     if (!name || !msg) {
         res.status(422).json("plz fill the data");
@@ -13,7 +18,7 @@ const sendAppealMsg = asyncHandler(async (req, res) => {
     else{
     try {
         const newMsg = new appealMsg({
-            name, msg
+            name, msg, worker_uid
         });
         await newMsg.save();
         res.status(201).json(newMsg);

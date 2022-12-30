@@ -1,4 +1,4 @@
-const bannedWorker = require("../model/msg/adminMsgSchema")
+const bannedWorker = require("../model/msg/appealMsgSchema")
 // const worker = require("../model/workerModsel")
 const asyncHandler = require("express-async-handler");
 
@@ -34,18 +34,34 @@ const asyncHandler = require("express-async-handler");
     }
     })
 
-    const unbanWorker = asyncHandler(async(req,res)=>{
-        try{
-            const {id} = req.params;
+    // const unbanWorker = asyncHandler(async(req,res)=>{
+    //     const {id}=req.params;
+    //     try{
+        
+    //         // const deletedService = await bannedWorker.deleteOne({worker_uid:id});
+    //         // const deletedService = await bannedWorker.findByIdAndRemove(req.params.id.toString().trim());
+    //         const deletedService = await bannedWorker.findOneAndDelete({_id:id});
 
-            const deletedService = await bannedWorker.findByIdAndDelete({_id:id});
-            
-            console.log(deletedService);
-            res.status(201).json(deletedService);
-        }catch(error){
-            res.status(422).json(error);
-        }
-    })
+    //         console.log(deletedService);
+    //         res.status(201).json(deletedService);
+    //     }catch(error){
+    //         console.log("sesh jibon");
+    //         res.status(422).json(error);
+    //     }
+    // })
+
+    const unbanWorker = asyncHandler(async(req,res) =>{
+        // console.log(req.body)
+        const {id}=req.params;
+        console.log(id)
+        bannedWorker.findOneAndDelete({worker_uid: id})
+          .then((doc)=>{
+            console.log("removed: ", doc)
+          })
+          .catch((error)=>{
+            console.log("remove error: ", error)
+          })
+      })
 
     // const findWorker = asyncHandler(async(req,res)=>{
     //     try{
