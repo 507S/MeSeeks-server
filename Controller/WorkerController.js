@@ -19,15 +19,22 @@ const registerWorker = asyncHandler(async (req, res) => {
     res.status(404).send(error);
     throw new Error(error);
   }
-  else if (password !== confirmPassword) {
-    error = "Passwords do not match"
-    res.status(404).send(error)
-    throw new Error(error)
-  }
   else if (password.length < 6) {
-    error = "Password must be at least 6 characters"
-    res.status(404).send(error)
-    throw new Error(error)
+    error = "Your password needs a minimum of Six characters"
+    res.status(404).send(error);
+    throw new Error(error);
+  } else if (password.search(/[a-z]/) < 0) {
+    error = "Your password needs a lower case letter"
+    res.status(404).send(error);
+    throw new Error(error);
+  } else if(password.search(/[A-Z]/) < 0) {
+    error = "Your password needs an uppser case letter"
+    res.status(404).send(error);
+    throw new Error(error);
+  } else  if (password.search(/[0-9]/) < 0) {
+    error = "Your password needs a number"
+    res.status(404).send(error);
+    throw new Error(error);
   }
   const worker = await Worker.create({
     firstname,
@@ -116,7 +123,6 @@ const getWorkerListOfWork = asyncHandler(async (req, res) => {
 const categorizeWork = asyncHandler(async(req,res)=>{
   res.status(201)
   let category = req.params.category
-  category="Plumber"
   WorkList.find({workerType: category, status:'false'})
     .then((data)=>{
       console.log('Worker end data:', data);
