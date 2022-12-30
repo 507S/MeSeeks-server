@@ -1,4 +1,5 @@
 const bannedWorker = require("../model/msg/appealMsgSchema")
+const bannedWorker2 = require("../model/msg/adminMsgSchema")
 // const worker = require("../model/workerModsel")
 const asyncHandler = require("express-async-handler");
 
@@ -54,13 +55,30 @@ const asyncHandler = require("express-async-handler");
         // console.log(req.body)
         const {id}=req.params;
         console.log(id)
-        bannedWorker.findOneAndDelete({worker_uid: id})
+        // bannedWorker.findOneAndDelete({worker_uid: id})
+        bannedWorker.deleteMany({worker_uid: id})
           .then((doc)=>{
             console.log("removed: ", doc)
           })
           .catch((error)=>{
             console.log("remove error: ", error)
           })
+        
+            
+      })
+      const unbanWorker2 = asyncHandler(async(req,res) =>{
+        // console.log(req.body)
+        const {id}=req.params;
+        console.log(id)
+        
+        //   bannedWorker2.deleteMany({id: uid})
+        bannedWorker2.findOneAndDelete({id: id})
+          .then((doc)=>{
+            console.log("removed2: ", doc)
+          })
+          .catch((error)=>{
+            console.log("remove error: ", error)
+          })  
       })
 
     // const findWorker = asyncHandler(async(req,res)=>{
@@ -75,4 +93,4 @@ const asyncHandler = require("express-async-handler");
     //     }
     // })
 
-    module.exports={getBannedWorker,unbanWorker}
+    module.exports={getBannedWorker,unbanWorker,unbanWorker2}

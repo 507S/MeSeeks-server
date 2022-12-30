@@ -14,6 +14,7 @@ router.get("/getbannedlist",banController.getBannedWorker);
 
 //delete category
 router.delete("/unbanworker/:id",banController.unbanWorker);
+router.delete("/unbanworker2/:id",banController.unbanWorker2);
 // router.post("/findworker",banController.findWorker);
 
 module.exports =router;
