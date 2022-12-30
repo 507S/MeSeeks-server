@@ -119,7 +119,7 @@ const categorizeWork = asyncHandler(async(req,res)=>{
   category="Plumber"
   WorkList.find({workerType: category, status:'false'})
     .then((data)=>{
-      // console.log('Worker end data:', data);
+      console.log('Worker end data:', data);
       res.json(data)
     })
     .catch((error)=>{
