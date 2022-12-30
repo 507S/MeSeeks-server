@@ -74,33 +74,33 @@ const authWorker = asyncHandler(async (req, res) => {
 });
 
 
-const updateWorkerProfile = asyncHandler(async (req, res) => {
-  console.log(req.body)
-  const worker = await Worker.findById(req.email);
+// const updateWorkerProfile = asyncHandler(async (req, res) => {
+//   console.log(req.body)
+//   const worker = await Worker.findById(req.email);
 
-  if (worker) {
-    worker.name = req.body.name || worker.name;
-    worker.email = req.body.email || worker.email;
-    worker.phone = req.body.phoneNumber || worker.phoneNumber
-    if (req.body.password) {
-      worker.password = req.body.password;
-    }
+//   if (worker) {
+//     worker.name = req.body.name || worker.name;
+//     worker.email = req.body.email || worker.email;
+//     worker.phone = req.body.phoneNumber || worker.phoneNumber
+//     if (req.body.password) {
+//       worker.password = req.body.password;
+//     }
 
-    const updatedworker = await worker.save();
+//     const updatedworker = await worker.save();
 
-    res.json({
-      _id: updatedworker._id,
-      name: updatedworker.name,
-      email: updatedworker.email,
-      pic: updatedworker.pic,
-      isAdmin: updatedworker.isAdmin,
-      token: generateToken(updatedworker._id),
-    });
-  } else {
-    res.status(404);
-    throw new Error("worker Not Found");
-  }
-});
+//     res.json({
+//       _id: updatedworker._id,
+//       name: updatedworker.name,
+//       email: updatedworker.email,
+//       pic: updatedworker.pic,
+//       isAdmin: updatedworker.isAdmin,
+//       token: generateToken(updatedworker._id),
+//     });
+//   } else {
+//     res.status(404);
+//     throw new Error("worker Not Found");
+//   }
+// });
 
 const getWorkerListOfWork = asyncHandler(async (req, res) => {
   WorkList.find({})
@@ -154,6 +154,31 @@ const getPendingWork = asyncHandler(async(req,res)=>{
       console.log("Error: ", error)
       res.json(error)
     })
+})
+
+const updateWorkerProfile = asyncHandler (async (req, res) => {
+  console.log("at update profile")
+  try {
+      const { id } = req.params;
+      const updateduser = await Worker.findByIdAndUpdate(id, {
+          username : req.body.username,
+          email: req.body.email,
+          phoneNumber: req.body.phoneNumber,
+          image: {
+              data: req.body.image,
+              contentType: "image/png"
+          },
+          location: req.body.location
+      } ,
+          {
+              new: true
+          }
+      );
+      console.log(updateduser);
+      res.status(201).json(updateduser);
+  } catch (error) {
+      res.status(422).json(error);
+  }
 })
 
 module.exports = { registerWorker, authWorker, updateWorkerProfile, getWorkerListOfWork, categorizeWork, acceptWork, getPendingWork}
