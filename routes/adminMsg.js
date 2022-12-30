@@ -5,6 +5,6 @@ const adminMsgController = require("../controller/msg/adminMsgController")
 
 router.post("/sendadminmsg",adminMsgController.sendAdminMsg);
 
-router.get("/getadminmsg",adminMsgController.getAdminMsg);
+router.get("/getadminmsg/:id",adminMsgController.getAdminMsg);
 
 module.exports =router;

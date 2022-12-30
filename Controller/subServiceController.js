@@ -5,7 +5,7 @@ const getSubServices = asyncHandler( async(req,res)=>{
     try{
         const subService = await subServices.find();
         res.status(201).json(subService)
-        console.log(subService)
+        // console.log(subService)
     }catch(error){
         res.status(422).send(error);
     }
@@ -26,8 +26,9 @@ const deleteSubService = asyncHandler( async(req,res) =>{
     try{
         const {id} = req.params;
         const deletedSubService = await subServices.findByIdAndDelete({_id:id});
-        res.status(201).json(deleteSubService);
+        res.status(201).json(deletedSubService);
     }catch(error){
+        // console.log("sesh jibon");
         res.status(422).send(error);
     }
 })

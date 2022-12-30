@@ -8,7 +8,12 @@ const serviceRoute = require("./routes/services")
 const subServiceRoute = require("./routes/subservices");
 const bannedWorkerRoute = require("./routes/banworker");
 const workerRoute = require("./routes/worker");
+const adminRoute = require("./routes/adminMsg");
 
+<<<<<<< HEAD
+=======
+require("./db/conn");
+>>>>>>> 0a74bbedc303e994177f376967205bfa67b7cef1
 // require("./db/conn");
 
 
@@ -24,6 +29,7 @@ app.use("/api/services", serviceRoute);
 app.use("/api/subservices", subServiceRoute);
 app.use("/api/bannedworker", bannedWorkerRoute);
 app.use("/api/worker", workerRoute);
+app.use("/api/admin", adminRoute);
 // app.use("/api/admin", workerRoute);
 
 
@@ -34,6 +40,7 @@ app.get('api/homepage', (req, res)=>{
 const userRoutes = require('./routes/userRoutes');
 app.use("/api", userRoutes); 
 
+<<<<<<< HEAD
 const connectionParams={
     useNewUrlParser: true,
     useUnifiedTopology: true 
@@ -43,6 +50,17 @@ mongoose.connect('mongodb://salmanjensen:sal@ac-36yxasj-shard-00-00.yx3sl49.mong
 )
 .then(()=>console.log('connected'))
 .catch(e=>console.log(e));
+=======
+// const connectionParams={
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true 
+// }
+// mongoose.connect('mongodb+srv://salmanjensen:sal@cluster0.yx3sl49.mongodb.net/?retryWrites=true&w=majority',
+//     connectionParams,
+// )
+// .then(()=>console.log('connected'))
+// .catch(e=>console.log(e));
+>>>>>>> 0a74bbedc303e994177f376967205bfa67b7cef1
 
 
 const port = 8003

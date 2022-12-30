@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const adminMsgSchema = new mongoose.Schema({
-    name: {
+    id: {
         type: String,
         required: true,
     },
