@@ -131,4 +131,49 @@ const deleteWork = asyncHandler(async(req,res) =>{
     })
 })
 
-module.exports = { registerUser, authUser, reserveUser, logoutUser, scheduleAppointment, getListOfWork, deleteWork };
+const completeWork = asyncHandler(async(req,res)=>{
+  const {id:work_id, uid} = req.body
+  console.log("here at complete work", work_id)
+  WorkList.findByIdAndUpdate(work_id, {completed: 'true', status: 'true'})
+    .then((data)=>{
+      console.log("This work is completed:")
+      console.log(data)
+    })
+    .catch((error)=>{
+      console.log("Error: ", error)
+    })
+})
+
+const ugetPendingWork = asyncHandler(async(req,res)=>{
+  const uid = req.params.uid
+  console.log(uid)
+  WorkList.find({uid, status: 'true', completed: 'false'})
+    .then((data)=>{
+      console.log("This is all pending work of uid", uid)
+      console.log(data)
+      res.json(data)
+    })
+    .catch((error)=>{
+      console.log("Error: ", error)
+      res.json(error)
+    })
+})
+
+const ugetCompletedWork = asyncHandler(async(req,res)=>{
+  const uid = req.params.uid
+  console.log("this is uid latest", uid)
+
+  WorkList.find({uid, status: 'true', completed: 'true'})
+    .then((data)=>{
+      console.log("This is all completed work of uid", uid)
+      console.log(data)
+      res.json(data)
+    })
+    .catch((error)=>{
+      console.log("Error: ", error)
+      res.json(error)
+    })
+})
+
+
+module.exports = { registerUser, authUser, reserveUser, logoutUser, scheduleAppointment, getListOfWork, deleteWork, completeWork, ugetCompletedWork, ugetPendingWork };

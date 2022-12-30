@@ -1,6 +1,6 @@
 const express = require("express");
-const {registerUser, authUser, reserveUser, logoutUser, scheduleAppointment, getListOfWork, deleteWork} = require("../Controller/UserController");
-const{registerWorker, authWorker, updateWorkerProfile, getWorkerListOfWork, categorizeWork, acceptWork, getPendingWork, getCompletedWork} = require("../Controller/WorkerController")
+const {registerUser, authUser, reserveUser, logoutUser, scheduleAppointment, getListOfWork, deleteWork, completeWork, ugetCompletedWork, ugetPendingWork} = require("../Controller/UserController");
+const{registerWorker, authWorker, updateWorkerProfile, getWorkerListOfWork, categorizeWork, acceptWork, getPendingWork, getCompletedWork,} = require("../Controller/WorkerController")
 const router = express.Router();
 const {protect} = require("../Middleware/AuthMiddleware")
 
@@ -16,6 +16,9 @@ router.route('/loginWorker').post(authWorker)
 router.route('/appointment-status').post(scheduleAppointment)
 router.route('/listofwork/:uid').get(getListOfWork)
 router.route('/delete-work').post(deleteWork)
+router.route('/complete-work').post(completeWork)
+router.route('/users/pending/:uid').get(ugetPendingWork)
+router.route('/users/completed/:uid').get(ugetCompletedWork)
 router.route('/workers/a-r/:category').get(categorizeWork)
 router.route('/workers/accept-work').post(acceptWork)
 //worker routes
