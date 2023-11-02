@@ -1,37 +1,27 @@
-pipeline{
+pipeline {
     agent any
-    tools {
-        nodejs 'salmans-nodejs'
-    }
-
-
-
+    
     stages {
-       stage('Cloning git') {
+        stage('Cloning git') {
             steps {
-                // Use the correct GitHub repository URL, credentials, and branch
                 git 'https://github.com/507S/MeSeeks-server.git'
             }
         }
-
-        stage('Build') { 
+        stage('Build') {
             steps {
-                sh 'npm install' 
+                nodejs(nodeJSInstallationName: 'salmans-nodejs', configId: '811bf464-6b2d-43b7-90bb-fb8ae6076e54') {
+                    sh 'npm config ls'
+                    sh 'npm install'
+                }
             }
         }
-       
-        // stage('Build') {
-        //     steps {
-        //         sh 'npm start'  // Adjust this command based on your project's setup
-        //     }
-        // }
-
         stage('Test') {
             steps {
-                sh 'npm test'  // Adjust this command based on your project's setup
+                nodejs(nodeJSInstallationName: 'salmans-nodejs', configId: '811bf464-6b2d-43b7-90bb-fb8ae6076e54') {
+                    sh 'npm test'
+                }
             }
         }
-
         // stage('Deploy') {
         //     steps {
         //         // Add deployment steps here, e.g., deploying to a server, container, or cloud platform
