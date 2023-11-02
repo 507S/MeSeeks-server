@@ -9,12 +9,15 @@ const router = require("./routes/users");
 
 const serviceRoute = require("./routes/services")
 
-const port = 8003;
+const port = 8006;
 
 //middleware
 app.use(cors());
 app.use(express.json());
 
+app.get('/', (req, res) => {
+    res.send('Hello, World!').status(200);
+  });
 
 app.use("/api/services", serviceRoute);
 
@@ -22,3 +25,5 @@ app.use("/api/services", serviceRoute);
 app.listen(port, ()=>{
     console.log(`server is running on port number ${port}`);
 });
+
+module.exports = app;
