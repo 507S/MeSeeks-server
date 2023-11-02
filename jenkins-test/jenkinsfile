@@ -1,23 +1,25 @@
 pipeline{
     agent any
-
-    environment {
-        NODEJS_VERSION = 'v20.9.0'
+    tools {
+        nodejs 'salmans-nodejs'
     }
 
 
-        stage('Install Dependencies') {
-            steps {
-                script {
-                    // Ensure Node.js is available and the correct version
-                    def nodeHome = tool name: "NodeJS-${NODEJS_VERSION}", type: 'Tool'
-                    def npmHome = tool name: "NodeJS-${NODEJS_VERSION}", type: 'Tool'
 
-                    sh "${nodeHome}/bin/npm install"
-                }
+    stages {
+       stage('Cloning git') {
+            steps {
+                // Use the correct GitHub repository URL, credentials, and branch
+                git 'https://github.com/507S/MeSeeks-server.git'
             }
         }
 
+        stage('Build') { 
+            steps {
+                sh 'npm install' 
+            }
+        }
+       
         // stage('Build') {
         //     steps {
         //         sh 'npm start'  // Adjust this command based on your project's setup
@@ -26,7 +28,6 @@ pipeline{
 
         stage('Test') {
             steps {
-                git 'https://github.com:507S/MeSeeks-server.git'
                 sh 'npm test'  // Adjust this command based on your project's setup
             }
         }
